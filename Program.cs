@@ -1,6 +1,6 @@
 using System.Data;
 using Npgsql;
-using ProjectManagementAPI.Repositories;  // Adicione isso para importar o repositório
+using ProjectManagementAPI.Repositories; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +9,7 @@ builder.Services.AddScoped<IDbConnection>(sp =>
     new NpgsqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Registra o repositório ProjectRepository
-builder.Services.AddScoped<ProjectRepository>();  // Adicione essa linha
+builder.Services.AddScoped<ProjectRepository>(); 
 
 // Adiciona os serviços necessários
 builder.Services.AddControllers();
