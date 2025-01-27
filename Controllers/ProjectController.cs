@@ -28,5 +28,34 @@ namespace ProjectManagementAPI.Controllers
             await _repository.AddProjectAsync(project);
             return Ok(new { message = "Project added successfully!" });
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProject(int id, [FromBody] Project project)
+        {
+            if (id != project.Id)
+            {
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID do projeto." });
+            }
+
+            var success = await _repository.UpdateProjectAsync(project);
+            if (!success)
+            {
+                return NotFound(new { message = "Projeto não encontrado" });
+            }
+
+            return Ok(new { message = "Projeto atualizado com sucesso!" });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProject(int id)
+        {
+            var success = await _repository.DeleteProjectAsync(id);
+            if (!success)
+            {
+                return NotFound(new { message = "Projeto não encontrado" });
+            }
+            return Ok(new { message = "Projeto excluído com sucesso" });
+        }
+
     }
 }
